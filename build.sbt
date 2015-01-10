@@ -1,0 +1,1 @@
+libraryDependencies += "org.scalanlp" %% "chalk" % "1.3.0"
