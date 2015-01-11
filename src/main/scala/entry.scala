@@ -1,33 +1,32 @@
-import scala.collection.immutable.HashMap
-
 /**
  * Created by ivanhoe on 09/01/15.
  */
+
+// http://twitter.github.io/effectivescala/
+// http://programminghistorian.org/lessons/topic-modeling-and-mallet
+
 object entry {
   def main(args: Array[String]) {
-    val fileToRead = "resources/pg236.txt"
-    val source = scala.io.Source.fromFile(fileToRead)
-    val tokens = source.mkString.split("\\s+")
-    source.close()
-//    println(lines.count("\n"))
-    //    println(lines)
 
-    println(fileToRead + " contains " + tokens.size.toString() + " words")
-
-    var unique:HashMap[String,Int] = new HashMap()
+    val filenameToRead = "resources/pg236.txt"
+    val contents = scala.io.Source.fromFile(filenameToRead)
+    val tokens = contents.mkString.split("\\s+")
+    contents.close()
 
 
-    for (x <- tokens ) {
-      val y = unique.get(x).getOrElse(0)
-      unique += x -> (y + 1)
+    println(filenameToRead + " contains " + tokens.size.toString() + " words")
 
-    }
-    println("and has " + unique.keys.size.toString() + " unique words")
+    //groupBy each token in tokens, sort by number of instances of a token, and print the result
+    val unique = tokens.groupBy(t => t).mapValues(_.size).toArray.sortWith({(a,b) => (a._2 > b._2) } ).map({a => println(a)})
 
-    val sortedArray = unique.toArray.sortWith( {(e1,e2) => (e1._2 > e2._2) } )
+//
+    dupa.main()
+  }
 
-    for (x <- sortedArray) {
-      println(x)
-    }
+}
+
+object dupa {
+  def main(): Unit = {
+    print("dupa is here")
   }
 }
